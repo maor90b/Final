@@ -13,16 +13,6 @@ class DeckOfCards:
             for s in suits:
                 self.deck.append(Card(s, v))
 
-
-
-
-        # for i in self.deck:
-        #     if type(i) != Card:
-        #         self.deck.remove(i)
-
-    # def __repr__(self):
-    #     return f'deck= {self.deck}'
-
     def __shuffle(self):
         """Shuffle the deck"""
         shuffle(self.deck)
@@ -42,8 +32,3 @@ class DeckOfCards:
     def show(self):
         """Print the deck"""
         print(self.deck)
-
-
-d = DeckOfCards()
-d.show()
-

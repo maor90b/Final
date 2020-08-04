@@ -17,10 +17,27 @@ class TestPlayer(TestCase):
 
         self.p = Player('maor')
         self.p2 = Player('philips')
-        self.p3 = Player('mike')
+        self.p3 = Player(5, 50000)
+        self.p4 = Player('mike', -5, -1)
+        self.p5 = Player('Dude', 'str', 20)
 
     def tearDown(self):
         print('TearDown')
+
+    def test___init(self):
+        # self.p3=Player(5,50000)
+        self.assertTrue(self.p3.money == 10000)
+        self.assertTrue(self.p3.name == 'Guest')
+
+        # self.p4 = Player('mike',-5,-1)
+        self.assertTrue(self.p4.money == 5000)
+
+        self.assertTrue(self.p4.cards == 5)
+
+        # self.p5=Player('Dude','str',20)
+        self.assertTrue(self.p5.money == 5000)
+
+        self.assertTrue(self.p5.cards == 5)
 
     def test_setHand(self):
         # self.d = DeckOfCards()
@@ -37,6 +54,11 @@ class TestPlayer(TestCase):
 
         for a in self.p.list_cards:
             self.assertTrue(type(a) == Card)
+
+        for i in range(10):
+            self.p.setHand(self.d)
+
+        self.assertTrue(self.p.setHand(self.d) == print('no more card in deck!'))
 
     def test_getCard(self):
         # self.p = Player('maor')
@@ -80,34 +102,30 @@ class TestPlayer(TestCase):
         self.p.reduceAmount(80000)
         self.assertTrue(self.p.money == 0)
 
-        cash=self.p2.money
+        cash = self.p2.money
         self.p2.reduceAmount(-5)
         self.assertTrue(self.p2.money == cash)
 
-        cash-=100
+        cash -= 100
         self.p2.reduceAmount(100)
         self.assertTrue(cash == self.p2.money)
-
-
 
     def test_addAmount(self):
 
         # self.p2 = Player('philips')
         print(self.p2.money)
-        amount=self.p2.money
+        amount = self.p2.money
         self.p2.addAmount(-1)
-        self.assertTrue(self.p2.money==amount)
-
+        self.assertTrue(self.p2.money == amount)
 
         self.p2.addAmount(10001)
         self.assertTrue(self.p2.money == 10000)
 
         cash = 10001
         self.p2.addAmount(1)
-        self.assertFalse(self.p2.money==cash)
+        self.assertFalse(self.p2.money == cash)
+
+    def test_print(self):
+        self.assertTrue(self.p.print()==print(f'name: {self.p.name}  money: {self.p.money}  cards: {self.p.list_cards}'))
 
 
-
-    # def test_print(self):
-    #     pass
-    #

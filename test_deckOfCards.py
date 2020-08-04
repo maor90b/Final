@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import patch
 from Game_Card.DeckOfCards import DeckOfCards
 from Game_Card.Card import Card
+from random import shuffle
 
 
 class TestDeckOfCards(TestCase):
@@ -14,6 +15,14 @@ class TestDeckOfCards(TestCase):
 
     def tearDown(self):
         print('TearDown')
+
+    def test___shuffle(self):
+        shuffle(self.d.deck)
+        count = 0
+        for i in range(len(self.d.deck)):
+            if self.d.deck[i] == self.d2.deck[i]:
+                count += 1
+        self.assertTrue(count != len(self.d2.deck))
 
     def test_deal_one(self):
         self.assertTrue(self.d.deck[-1] == self.d.deal_one())
@@ -39,8 +48,7 @@ class TestDeckOfCards(TestCase):
         for i in range(len(self.d.deck)):
             if self.d.deck[i] == self.d2.deck[i]:
                 count += 1
-        print(count)
-        self.assertGreater(len(self.d.deck), count)
+        self.assertTrue(count != len(self.d2.deck))
 
     def test_show(self):
-        pass
+        self.assertTrue(self.d.show() == print(self.d.deck))

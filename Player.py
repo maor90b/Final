@@ -7,15 +7,18 @@ class Player:
     """The Player class holds information about player in card game"""
 
     def __init__(self, name, money=randint(5000, 10000), cards=5):
+        if type(money) != int:
+            money = 5000
         if money > 10000:
             money = 10000
         if money < 5000:
             money = 5000
-        if type(money) != int:
-            money = 5000
-        if cards > 13:
-            cards = 13
-        if type(name) != str:
+
+        if int != type(cards):
+            cards=5
+        if cards > 13 or cards < 1:
+            cards = 5
+        if type(name) != str or len(name) < 1:
             name = 'Guest'
 
         self.cards = cards
@@ -29,9 +32,11 @@ class Player:
 
     def setHand(self, deck):
         """Gives deck of cards for player"""
-        for i in range(self.cards):
-            self.list_cards.append(deck.deal_one())
-
+        if len(deck.deck) > 0:
+            for i in range(self.cards):
+                self.list_cards.append(deck.deal_one())
+        else:
+            print('no more card in deck!')
 
     def getCard(self):
         """Return and remove random card from player """
@@ -49,8 +54,8 @@ class Player:
 
     def reduceAmount(self, amount):
         """Reduce money from player"""
-        if amount<0:
-            amount=0
+        if amount < 0:
+            amount = 0
 
         if self.money - amount <= 0:
             self.money = 0
@@ -59,8 +64,8 @@ class Player:
 
     def addAmount(self, amount):
         """Add money for player"""
-        if amount<0:
-            amount=0
+        if amount < 0:
+            amount = 0
         if self.money + amount >= 10000:
             self.money = 10000
         else:
@@ -69,4 +74,3 @@ class Player:
     def print(self):
         """print details of player"""
         print(f'name: {self.name}  money: {self.money}  cards: {self.list_cards}')
-

@@ -2,6 +2,7 @@ from unittest import TestCase
 from unittest.mock import patch
 from Game_Card.DeckOfCards import DeckOfCards
 from Game_Card.Card import Card
+from random import shuffle
 
 
 class TestDeckOfCards(TestCase):
@@ -15,11 +16,22 @@ class TestDeckOfCards(TestCase):
     def tearDown(self):
         print('TearDown')
 
+    def test___shuffle(self):
+        # self.d = DeckOfCards()
+        # self.d2 = DeckOfCards()
+        shuffle(self.d.deck)
+        count = 0
+        for i in range(len(self.d.deck)):
+            if self.d.deck[i] == self.d2.deck[i]:
+                count += 1
+        self.assertTrue(count < len(self.d2.deck))  # check if shuffle deck place is changed
+
     def test_deal_one(self):
+        # self.d = DeckOfCards()
         self.assertTrue(self.d.deck[-1] == self.d.deal_one())
 
         card = self.d.deal_one()
-        self.assertTrue(type(card) == Card)
+        self.assertTrue(type(card) == Card)  # check if type is Card
 
         for i in range(len(self.d.deck)):
             self.d.deal_one()
@@ -28,19 +40,20 @@ class TestDeckOfCards(TestCase):
         self.assertTrue(self.d.deal_one() == print('No more cards in deck!'))
 
     def test_new_game(self):
+        # self.d = DeckOfCards()
+        self.d.deck = []
         self.d.new_game()
 
         # self.d2 = DeckOfCards()
-        self.assertTrue(len(self.d.deck) == 52)
+        self.assertTrue(len(self.d.deck) == 52)  # check if new_game renew the deck
         for i in self.d.deck:
             self.assertIn(i, self.d2.deck)
 
         count = 0
-        for i in range(len(self.d.deck)):
+        for i in range(len(self.d.deck)):  # check if deck is shuffle
             if self.d.deck[i] == self.d2.deck[i]:
                 count += 1
-        print(count)
-        self.assertGreater(len(self.d.deck), count)
+        self.assertTrue(count < len(self.d2.deck))
 
     def test_show(self):
-        pass
+        self.assertTrue(self.d.show() == print(self.d.deck))

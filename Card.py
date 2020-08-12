@@ -10,6 +10,8 @@ class Card:
             value = 2
         elif value < 2 or value > 14:
             value = 2
+        else:
+            value = value
 
         self.suit = suit
         self.value = value
@@ -29,6 +31,7 @@ class Card:
         return f'{self.suit} {self.value}'
 
     def __gt__(self, other):
+        """Return greater card"""
         if self.value > other.value:
             return True
         if self.value == other.value:
@@ -37,6 +40,7 @@ class Card:
             return False
 
     def __eq__(self, other):
+        """Return true for equal cards"""
         if self.value == other.value and self.suit == other.suit:
             return True
         return False
